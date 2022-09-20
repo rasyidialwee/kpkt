@@ -14,4 +14,9 @@ class Senarai extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function tugasans()
+    {
+        return $this->hasMany(Tugasan::class);
+    }
 }
