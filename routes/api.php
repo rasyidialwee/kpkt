@@ -19,8 +19,6 @@ use App\Models\User;
 //     return $request->user();
 // });
 
-// Route::get('senarais', [APISenaraiController::class, 'index'])->name('senarais.index');
-
 Route::post('/sanctum/token', function (Request $request) {
 
     $request->validate([
