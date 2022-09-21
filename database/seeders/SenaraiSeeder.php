@@ -15,6 +15,6 @@ class SenaraiSeeder extends Seeder
      */
     public function run()
     {
-        Senarai::factory(10)->create();
+        Senarai::factory(100)->create();
     }
 }
