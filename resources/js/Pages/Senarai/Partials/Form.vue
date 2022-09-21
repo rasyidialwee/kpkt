@@ -2,7 +2,7 @@
   <div>
     <input type="text" v-model="form.name" />
 
-    <button @click="submit()">Simpan</button>
+    <button @click="submit()">Submit</button>
   </div>
 </template>
 
