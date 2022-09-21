@@ -1,30 +1,48 @@
 <script setup>
 import AppLayout from "@/Layouts/AppLayout.vue";
+import { ref } from "@vue/reactivity";
+import { onMounted } from "@vue/runtime-core";
+import axios from "axios";
 import SenaraiItem from "./Partials/SenaraiItem.vue";
+import Form from "./Partials/Form.vue";
 
-const senarais = [
-  { name: "senarai1" },
-  { name: "senarai2" },
-  { name: "senarai3" },
-  { name: "senarai4" },
-  { name: "senarai5" },
-  { name: "senarai6" },
-  { name: "senarai7" },
-];
+const senarais = ref([]);
+const showForm = ref(false);
+function getSenarais() {
+  axios.get(route("api.senarais.index")).then((resp) => {
+    senarais.value = resp.data;
+  });
+}
+
+function toggleForm() {
+  showForm.value = !showForm.value;
+  console.log("form", showForm.value);
+}
+
+function saved() {
+  showForm.value = false;
+  getSenarais();
+}
+
+onMounted(() => {
+  getSenarais();
+});
 </script>
 
     <template>
   <AppLayout title="Dashboard">
     <template #header>
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+      <h2 class="text-xl font-semibold leading-tight text-gray-800">
         Dashboard
       </h2>
     </template>
 
     <div class="py-12">
-      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-          <ul>
+      <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <button @click="toggleForm()">+</button>
+        <div class="overflow-hidden bg-white shadow-xl sm:rounded-lg">
+          <Form v-if="showForm" @saved="saved()" />
+          <ul v-else>
             <SenaraiItem
               v-for="(senarai, index) in senarais"
               :key="index"

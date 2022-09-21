@@ -11,4 +11,15 @@ class APISenaraiController extends Controller
     {
         return Senarai::all();
     }
+
+    public function store(Request $request)
+    {
+        $user = auth()->user();
+        $senarai = new Senarai();
+        $senarai->name = $request['name'];
+        $senarai->user()->associate($user);
+        $senarai->save();
+
+        return $senarai;
+    }
 }

@@ -44,4 +44,5 @@ Route::post('/sanctum/token', function (Request $request) {
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('senarais', [APISenaraiController::class, 'index'])->name('senarais.index');
+    Route::post('senarais', [APISenaraiController::class, 'store'])->name('senarais.store');
 });
